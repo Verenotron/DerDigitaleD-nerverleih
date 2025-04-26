@@ -9,55 +9,59 @@
 <body>
     <h1 th:text="'Benutzer ' + ${name} + ' beareiten'">Benutzer bearbeiten</h1>
 
-    <table>
-        <tr>
-            <td>Name</td>
-            <td>
-                <label for="name"></label>
-                <input type="text" name="name">
-            </td>
-        </tr>
-        <tr>
-            <td>Digitalpostanschrift</td>
-            <td>
-                <label for="anschrift"></label>
-                <input type="text" name="anschrift">
-            </td>
-        </tr>
-        <tr>
-            <td>Vegetarizität</td>
-            <td>
-                <input type="radio" name="unvegetarisch" value=0>
-                <input type="radio" name="vegetarisch" value=1>
-                <input type="radio" name="vegan" value=2>
-            </td>
-        </tr>
-        <tr>
-            <td>Rolle</td>
-            <td>
-                <select name="rolle" id="">
-                    <option value="ADMIN">ADMIN</option>
-                    <option value="KUNDE">KUNDE</option>
-                    <option value="GESPERRT">GESPERRT</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            
-            <td>Losung</td>
-            <td>
-                <label for="losung"></label>
-                <input type="password" name="losung">
-            </td>
-        </tr>
-        <tr>
-            <td>Losung(Wiederh.)</td>
-            <td>
-                <label for="losungWiederh"></label>
-                <input type="password" name="losungWiederh">
-            </td>
-        </tr>
-    </table>
+    <form th:action="${name}" method="post">
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <label for="name"></label>
+                    <input th:field="${formular.name}" th:value="${formular.name}" type="text" name="name">
+                </td>
+            </tr>
+            <tr>
+                <td>Digitalpostanschrift</td>
+                <td>
+                    <label for="anschrift"></label>
+                    <input th:value="${formular.anschrift}" type="text" name="anschrift">
+                </td>
+            </tr>
+            <tr>
+                <td>Vegetarizität</td>
+                <td>
+                    <!-- Name der radiobuttons müssen gleich sein, damit nur einer ausgewählt werden kann-->
+                    <input type="radio" name="vegetarizitaet" value=0 th:checked="${formular.vegetarizitaet} == 0">
+                    <input type="radio" name="vegetarizitaet" value=1 th:checked="${formular.vegetarizitaet} == 1">
+                    <input type="radio" name="vegetarizitaet" value=2 th:checked="${formular.vegetarizitaet} == 2">
+                </td>
+            </tr>
+            <tr>
+                <td>Rolle</td>
+                <td>
+                    <select name="rolle" id="">
+                        <option value="ADMIN" th:selected="${formular.rolle} == ADMIN">ADMIN</option>
+                        <option value="KUNDE" th:selected="${formular.rolle} == KUNDE">KUNDE</option>
+                        <option value="GESPERRT" th:selected="${formular.rolle} == GESPERRT">GESPERRT</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                
+                <td>Losung</td>
+                <td>
+                    <label for="losung"></label>
+                    <input type="password" name="losung">
+                </td>
+            </tr>
+            <tr>
+                <td>Losung(Wiederh.)</td>
+                <td>
+                    <label for="losungWiederh"></label>
+                    <input type="password" name="losungWiederh">
+                </td>
+            </tr>
+        </table>
+    <button>Hinzufügen</button>
+    </form>
     
 </body>
 </html>
