@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bnutzer Bearbeiten</title>
+    <html xmlns:th="http://www.thymeleaf.org"></html>
 </head>
 <body>
-    <h1>Benutzer bearbeiten</h1>
+    <h1 th:text="'Benutzer ' + ${name} + ' beareiten'">Benutzer bearbeiten</h1>
 
     <table>
         <tr>
