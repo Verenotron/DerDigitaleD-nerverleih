@@ -15,22 +15,31 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
-@SessionAttributes(names = {"benutzerMap"})
+@SessionAttributes(names = {"formularMap"})
 public class BenutzerController {
+
+    @ModelAttribute("formularMap")
+    public Map<String, BenutzerFormular> initMap(Model model){ //bei komkretem Rückgabetyp wird methode beim Sessionstart aufgerufen, mit void vor jedem Handler Aufruf
+        return new HashMap<String, BenutzerFormular>();
+    }
+
+    Map<String, BenutzerFormular> sessionBenutzerMap;
 
     @GetMapping("/benutzer/{loginName}")
     public String getBenutzer(@PathVariable("loginName") String name,
-                                @ModelAttribute("formular") BenutzerFormular benutzerFormular,
+                                @ModelAttribute("formular") BenutzerFormular benutzerFormular, //sucht in Model -> Session -> Pfadvariablen oder erstellt neues Instanz
+                                @ModelAttribute("formularMap") Map<String, BenutzerFormular> sessionBenutzerMap,
                                 Model model) {
-        Map<String, BenutzerFormular> map;
-        map = (Map<String, BenutzerFormular>) model.getAttribute("benutzerMap");
-        if(map == null){
-            map = new HashMap<>();
+        
+        //sessionBenutzerMap = (Map<String, BenutzerFormular>) model.getAttribute("formularMap");
+
+        if(sessionBenutzerMap == null){
+            sessionBenutzerMap = new HashMap<>();
             model.addAttribute("name", name);
             return "benutzer/bearbeiten.html";
         }
-        if(map.containsKey(name)){
-            benutzerFormular = map.get(name);
+        if(sessionBenutzerMap.containsKey(name)){
+            benutzerFormular = sessionBenutzerMap.get(name);
             model.addAttribute("formular", benutzerFormular);
         }
         model.addAttribute("name", name);
@@ -45,17 +54,16 @@ public class BenutzerController {
 
         model.addAttribute("name", benutzerFormular.getName());
         model.addAttribute("formular", benutzerFormular);
-        Map<String, BenutzerFormular> map;
         // @SuppressWarnings("unckecked")
-        map = (Map<String, BenutzerFormular>) model.getAttribute("benutzerMap"); //Model gibt immer ein Objekt zurück
+        //sessionBenutzerMap = (Map<String, BenutzerFormular>) model.getAttribute("formularMap"); //Model gibt immer ein Objekt zurück
 
-        if(map == null){
-            map = new HashMap<String, BenutzerFormular>();
+        if(sessionBenutzerMap == null){
+            sessionBenutzerMap = new HashMap<String, BenutzerFormular>();
         }
 
-        map.put(benutzerFormular.getName(), benutzerFormular);
+        sessionBenutzerMap.put(benutzerFormular.getName(), benutzerFormular);
 
-        model.addAttribute("benutzerMap", map);
+        model.addAttribute("formularMap", sessionBenutzerMap);
         
         return "benutzer/bearbeiten.html";
     }
