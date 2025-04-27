@@ -7,40 +7,40 @@
     <html xmlns:th="http://www.thymeleaf.org"></html>
 </head>
 <body>
-    <h1 th:text="'Benutzer ' + ${name} + ' beareiten'">Benutzer bearbeiten</h1>
+    <h1 th:text="|Benutzer ${name} beareiten|">Benutzer bearbeiten</h1> <!-- |...| dient als Textvorlage -->
 
-    <form th:action="${name}" method="post">
+    <form th:action="${name}" th:object="${formular}" method="post"> <!--bindet formulat Objekt, damit man per *{...} darauf zugreifen kann-->
         <table>
             <tr>
                 <td>Name</td>
                 <td>
                     <label for="name"></label>
-                    <input th:field="${formular.name}" th:value="${formular.name}" type="text" name="name">
+                    <input th:value="*{name}" type="text" name="name">
                 </td>
             </tr>
             <tr>
                 <td>Digitalpostanschrift</td>
                 <td>
                     <label for="anschrift"></label>
-                    <input th:value="${formular.anschrift}" type="text" name="anschrift">
+                    <input th:value="*{anschrift}" type="text" name="anschrift"> <!--th:field binded ebenfalls wie th:value den Wert. Darüber hinaus aber auch Fhler, ID, Name-->
                 </td>
             </tr>
             <tr>
                 <td>Vegetarizität</td>
                 <td>
                     <!-- Name der radiobuttons müssen gleich sein, damit nur einer ausgewählt werden kann-->
-                    <input type="radio" name="vegetarizitaet" value=0 th:checked="${formular.vegetarizitaet} == 0">
-                    <input type="radio" name="vegetarizitaet" value=1 th:checked="${formular.vegetarizitaet} == 1">
-                    <input type="radio" name="vegetarizitaet" value=2 th:checked="${formular.vegetarizitaet} == 2">
+                    <input type="radio" name="vegetarizitaet" value=0 th:checked="*{vegetarizitaet} == 0">
+                    <input type="radio" name="vegetarizitaet" value=1 th:checked="*{vegetarizitaet} == 1">
+                    <input type="radio" name="vegetarizitaet" value=2 th:checked="*{vegetarizitaet} == 2">
                 </td>
             </tr>
             <tr>
                 <td>Rolle</td>
                 <td>
                     <select name="rolle" id="">
-                        <option value="ADMIN" th:selected="${formular.rolle} == ADMIN">ADMIN</option>
-                        <option value="KUNDE" th:selected="${formular.rolle} == KUNDE">KUNDE</option>
-                        <option value="GESPERRT" th:selected="${formular.rolle} == GESPERRT">GESPERRT</option>
+                        <option value="ADMIN" th:selected="*{rolle} == ADMIN">ADMIN</option>
+                        <option value="KUNDE" th:selected="*{rolle} == KUNDE">KUNDE</option>
+                        <option value="GESPERRT" th:selected="*{rolle} == GESPERRT">GESPERRT</option>
                     </select>
                 </td>
             </tr>
