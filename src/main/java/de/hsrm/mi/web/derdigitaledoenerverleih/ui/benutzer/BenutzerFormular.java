@@ -2,10 +2,13 @@ package de.hsrm.mi.web.derdigitaledoenerverleih.ui.benutzer;
 
 public class BenutzerFormular {
 
+    private String[] ernaerungsAuswahl = {"vegan", "vegetarisch", "alles"};
+    private String[] rollen = {"ADMIN", "KUNDE", "GESPERRT"};
+
     //Properties -> private Instalsvariablen mit Getter Setter
     private String name = "";
     private String anschrift = "";
-    private int vegetarizitaet = 0;
+    private String vegetarizitaet = "0";
     private String rolle = "";
     private String losung = "";
     
@@ -21,10 +24,10 @@ public class BenutzerFormular {
     public void setAnschrift(String anschrift) {
         this.anschrift = anschrift;
     }
-    public int getVegetarizitaet() {
+    public String getVegetarizitaet() {
         return vegetarizitaet;
     }
-    public void setVegetarizitaet(int vegetarizitaet) {
+    public void setVegetarizitaet(String vegetarizitaet) {
         this.vegetarizitaet = vegetarizitaet;
     }
     public String getRolle() {
@@ -38,6 +41,12 @@ public class BenutzerFormular {
     }
     public void setLosung(String losung) {
         this.losung = losung;
+    }
+    public String[] getErnaerungsAuswahl() {
+        return ernaerungsAuswahl;
+    }
+    public String[] getRollen() {
+        return rollen;
     }
 
     

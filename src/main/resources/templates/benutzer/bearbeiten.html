@@ -29,18 +29,20 @@
                 <td>Vegetarizität</td>
                 <td>
                     <!-- Name der radiobuttons müssen gleich sein, damit nur einer ausgewählt werden kann-->
-                    <input type="radio" name="vegetarizitaet" value=0 th:checked="*{vegetarizitaet} == 0">
-                    <input type="radio" name="vegetarizitaet" value=1 th:checked="*{vegetarizitaet} == 1">
-                    <input type="radio" name="vegetarizitaet" value=2 th:checked="*{vegetarizitaet} == 2">
+                    <div th:each="rb, iter : *{ernaerungsAuswahl}">
+                        <input type="radio" name="vegetarizitaet" th:field="*{vegetarizitaet}" value=${iter.index}>
+                        <span th:text="${rb}"></span>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td>Rolle</td>
                 <td>
-                    <select name="rolle" id="">
-                        <option value="ADMIN" th:selected="*{rolle} == ADMIN">ADMIN</option>
+                    <select th:field="*{rolle}" name="rolle" id="">
+                        <option th:each="op, iter : *{rollen}" value="${op}" th:text="${op}"></option>
+                        <!-- <option value="ADMIN" th:selected="*{rolle} == ADMIN">ADMIN</option>
                         <option value="KUNDE" th:selected="*{rolle} == KUNDE">KUNDE</option>
-                        <option value="GESPERRT" th:selected="*{rolle} == GESPERRT">GESPERRT</option>
+                        <option value="GESPERRT" th:selected="*{rolle} == GESPERRT">GESPERRT</option> -->
                     </select>
                 </td>
             </tr>
