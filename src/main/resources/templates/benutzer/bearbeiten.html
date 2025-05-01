@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bnutzer Bearbeiten</title>
     <html xmlns:th="http://www.thymeleaf.org"></html>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <!-- Wenn Pfad mit / beginnt, wird pfad absolut relativ zur domain interpretiert. In Spring Boot ist /static/ im Klassenpfad versteckt-->
 </head>
+
+<!-- Wen zwei input felder das gleiche Formular-attribut ansprechen, werden die werte in eine Liste geschrieben und ausgegeben. (Mit "," getrennt)-->
 <body>
     <h1 th:text="|Benutzer ${name} beareiten|">Benutzer bearbeiten</h1> <!-- |...| dient als Textvorlage -->
+
+    <p th:if="${info}" th:text="${info}"></p>
 
     <form th:action="${name}" th:object="${formular}" method="post"> <!--bindet formulat Objekt, damit man per *{...} darauf zugreifen kann-->
         <table>
@@ -15,14 +21,16 @@
                 <td>Name</td>
                 <td>
                     <label for="name"></label>
-                    <input th:value="*{name}" type="text" name="name">
+                    <input th:value="*{name}" type="text" name="name" th:classappend="${#fields.hasErrors('name') ? 'errorBorder' : ''}">
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errorText"></div>
                 </td>
             </tr>
             <tr>
                 <td>Digitalpostanschrift</td>
                 <td>
-                    <label for="anschrift"></label>
-                    <input th:value="*{anschrift}" type="text" name="anschrift"> <!--th:field binded ebenfalls wie th:value den Wert. Darüber hinaus aber auch Fhler, ID, Name-->
+                    <label for="email"></label>
+                    <input th:value="*{email}" type="text" name="email" th:classappend="${#fields.hasErrors('email') ? 'errorBorder' : ''}">
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errorText"></div>
                 </td>
             </tr>
             <tr>
@@ -51,14 +59,16 @@
                 <td>Losung</td>
                 <td>
                     <label for="losung"></label>
-                    <input type="password" name="losung">
+                    <input type="password" name="losung" th:classappend="${#fields.hasErrors ? errorBorder : ''}">
+                    <div th:if="${#fields.hasErrors('losung')}" th:errors="*{losung}" class="errorText"></div>
                 </td>
             </tr>
             <tr>
                 <td>Losung(Wiederh.)</td>
                 <td>
                     <label for="losungWiederh"></label>
-                    <input type="password" name="losungWiederh">
+                    <input type="password" name="losungWiederh" th:classappend="${#fields.hasErrors ? errorText : ''}">
+                    <div th:if="${#fields.hasErrors('losungWiederh')}" th:errors="*{losungWiederh}" class="errorText"></div>
                 </td>
             </tr>
         </table>

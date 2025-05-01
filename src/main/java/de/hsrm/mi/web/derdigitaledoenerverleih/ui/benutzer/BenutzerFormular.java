@@ -1,28 +1,43 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.ui.benutzer;
 
+import de.hsrm.mi.web.derdigitaledoenerverleih.ui.validators.Losung;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class BenutzerFormular {
 
-    private String[] ernaerungsAuswahl = {"vegan", "vegetarisch", "alles"};
-    private String[] rollen = {"ADMIN", "KUNDE", "GESPERRT"};
+    private String[] ernaerungsAuswahl;
+    private String[] rollen;
 
     //Properties -> private Instalsvariablen mit Getter Setter
-    private String name = "";
-    private String anschrift = "";
-    private String vegetarizitaet = "0";
-    private String rolle = "";
-    private String losung = "";
+    @NotEmpty
+    @Size(min=2, max=60, message="Name muss min 2 und max 60 Zeichen lang sein.")
+    private String name;
+    @NotEmpty
+    @Email(message = "Muss eine richtige Email sein.")
+    private String email;
+    private String vegetarizitaet;
+    private String rolle;
+    @Losung(value = "42", value2 = "Zweiundvierzig", message="Die Losung muss 42 oder Zweiundvierzig enthalten.")
+    private String losung;
+    @Losung(value = "42", value2 = "Zweiundvierzig", message="Die Losung muss 42 oder Zweiundvierzig enthalten.")
+    private String losungWiederh;
     
+    public BenutzerFormular() {
+        this.ernaerungsAuswahl = new String[]{"vegan", "vegetarisch", "alles"};
+        this.rollen = new String[] {"ADMIN", "KUNDE", "GESPERRT"};
+        this.name = "";
+        this.email = "";
+        this.vegetarizitaet = "0";
+        this.rolle = "";
+        this.losung = "";
+    }
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
-    }
-    public String getAnschrift() {
-        return anschrift;
-    }
-    public void setAnschrift(String anschrift) {
-        this.anschrift = anschrift;
     }
     public String getVegetarizitaet() {
         return vegetarizitaet;
@@ -48,6 +63,25 @@ public class BenutzerFormular {
     public String[] getRollen() {
         return rollen;
     }
+    public void setErnaerungsAuswahl(String[] ernaerungsAuswahl) {
+        this.ernaerungsAuswahl = ernaerungsAuswahl;
+    }
+    public void setRollen(String[] rollen) {
+        this.rollen = rollen;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getLosungWiederh() {
+        return losungWiederh;
+    }
+    public void setLosungWiederh(String losungWiederh) {
+        this.losungWiederh = losungWiederh;
+    }
+    
 
     
     
