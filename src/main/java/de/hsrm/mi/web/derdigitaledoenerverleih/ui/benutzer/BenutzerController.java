@@ -1,6 +1,7 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.ui.benutzer;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @SessionAttributes(names = {"formularMap"})
@@ -25,13 +28,31 @@ public class BenutzerController {
 
     Map<String, BenutzerFormular> sessionBenutzerMap;
 
+    @GetMapping("/benutzer")
+    public String getMethodName() {
+        return "forward:/benutzer/neu";
+    }
+
+    // @GetMapping("/submit") //brauchen wir nur für den Sprachen wechsel, wenn ich erst auf submit und dann die sprache wechseln will
+    // public String getSubmit(@RequestParam(name = "sprache", required = false) String sprache, //Parameter sprache ist optional, wenn er fehlt, wird er auf null gesetzt
+    //                         Locale locale,
+    //                         Model model) { //Model wird per DepedencyInjection initialisiert
+    //     model.addAttribute("sprache", locale.getDisplayLanguage());
+        
+    //     return "benutzerbearbeiten";
+    // }
+    
+
     @GetMapping("/benutzer/{loginName}")
     public String getBenutzer(@PathVariable("loginName") String name,
                                 @ModelAttribute("formular") BenutzerFormular benutzerFormular, //sucht in Model -> Session -> Pfadvariablen oder erstellt neues Instanz
                                 @ModelAttribute("formularMap") Map<String, BenutzerFormular> sessionBenutzerMap,
+                                Locale locale,
                                 Model model) {
         
         //sessionBenutzerMap = (Map<String, BenutzerFormular>) model.getAttribute("formularMap");
+
+        model.addAttribute("sprache", locale.getDisplayLanguage());
 
         if(sessionBenutzerMap == null){
             sessionBenutzerMap = new HashMap<>();

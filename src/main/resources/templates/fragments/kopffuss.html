@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org"></html>
+    <title>Fragments</title>
+</head>
+<body>
+
+    <header th:fragment="kopf">
+        <a href="/benutzer">Benutzer</a>
+        <a th:href="@{?sprache=de}">DE</a>
+        <a th:href="@{?sprache=en}">EN</a>
+        <a th:href="@{?sprache=nl}">NL</a> 
+        <!--erzeug Link zur aktuellen URL und ergänzt sprache=de als Query Parameter. z.b.Benutzer/nane?sprache=de-->
+    </header>
+
+    <div th:fragment="fuss">
+        <div>
+            Hier könnte Ihre Werbung stehen...
+        </div>
+    </div>
+    
+</body>
+</html>
