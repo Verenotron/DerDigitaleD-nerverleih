@@ -18,11 +18,9 @@ import jakarta.validation.Valid;
 
 
 @Controller
-//@SessionAttributes(names = {"formularMap"})
 //@SessionAttributes(names = {"formular"})
 public class BenutzerController {
 
-    //Map<String, BenutzerFormular> sessionBenutzerMap;
     @Autowired
     BenutzerService benutzerService;
     BenutzerMaper benutzerMapper = new BenutzerMaper();
@@ -37,30 +35,16 @@ public class BenutzerController {
         return "forward:/benutzer/neu";
     }
 
-    // @GetMapping("/submit") //brauchen wir nur für den Sprachen wechsel, wenn ich erst auf submit und dann die sprache wechseln will
-    // public String getSubmit(@RequestParam(name = "sprache", required = false) String sprache, //Parameter sprache ist optional, wenn er fehlt, wird er auf null gesetzt
-    //                         Locale locale,
-    //                         Model model) { //Model wird per DepedencyInjection initialisiert
-    //     model.addAttribute("sprache", locale.getDisplayLanguage());
-        
-    //     return "benutzerbearbeiten";
-    // }
-    
-
     @GetMapping("/benutzer/{loginName}")
     public String getBenutzer(@PathVariable("loginName") String loginName,
                                 @ModelAttribute("formular") BenutzerFormular benutzerFormular, //sucht in Model -> Session -> Pfadvariablen oder erstellt neues Instanz
                                // Locale locale,
                                 Model model) {
-        
-        //sessionBenutzerMap = (Map<String, BenutzerFormular>) model.getAttribute("formularMap");
-
-       // model.addAttribute("sprache", locale.getDisplayLanguage());
 
        Benutzer benutzer;
        try{
-            benutzer = benutzerService.findBenutzerById(loginName).orElseThrow(() -> new NoSuchElementException());
-       }catch(NoSuchElementException e){
+            benutzer = benutzerService.findBenutzerById(loginName).orElseThrow(() -> new BenutzerException("Benutzer nicht gefunden"));
+       }catch(BenutzerException e){
             model.addAttribute("name", loginName);
             return "benutzer/bearbeiten.html";
        }
@@ -87,9 +71,6 @@ public class BenutzerController {
             result.rejectValue("losungWiederh", "Losungen müssen übereinstimmen", "Losungen müssen übereinstimmen");
             result.rejectValue("losung", "Losungen müssen übereinstimmen", "Losungen müssen übereinstimmen");
         }
-        
-        // @SuppressWarnings("unckecked")
-        //sessionBenutzerMap = (Map<String, BenutzerFormular>) model.getAttribute("formularMap"); //Model gibt immer ein Objekt zurück
 
         Benutzer benutzer = benutzerMapper.benutzerFormularToBenutzer(benutzerFormular);
         if(benutzerService.findBenutzerById(loginName).isEmpty()){
