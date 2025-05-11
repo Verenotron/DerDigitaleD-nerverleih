@@ -1,7 +1,8 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.ui.benutzer;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,19 +12,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer.Benutzer;
+import de.hsrm.mi.web.derdigitaledoenerverleih.services.benutzer.BenutzerService;
 import jakarta.validation.Valid;
 
 
 @Controller
-@SessionAttributes(names = {"formularMap"})
+//@SessionAttributes(names = {"formularMap"})
+//@SessionAttributes(names = {"formular"})
 public class BenutzerController {
 
-    @ModelAttribute("formularMap")
-    public Map<String, BenutzerFormular> initMap(Model model){ //bei komkretem Rückgabetyp wird methode beim Sessionstart aufgerufen, mit void vor jedem Handler Aufruf
-        return new HashMap<String, BenutzerFormular>();
-    }
+    //Map<String, BenutzerFormular> sessionBenutzerMap;
+    @Autowired
+    BenutzerService benutzerService;
+    BenutzerMaper benutzerMapper = new BenutzerMaper();
 
-    Map<String, BenutzerFormular> sessionBenutzerMap;
+    @ModelAttribute("formular")
+    public BenutzerFormular initForm(Model model){ //bei komkretem Rückgabetyp wird methode beim Sessionstart aufgerufen, mit void vor jedem Handler Aufruf
+        return new BenutzerFormular();
+    }
 
     @GetMapping("/benutzer")
     public String getMethodName() {
@@ -41,9 +48,8 @@ public class BenutzerController {
     
 
     @GetMapping("/benutzer/{loginName}")
-    public String getBenutzer(@PathVariable("loginName") String name,
+    public String getBenutzer(@PathVariable("loginName") String loginName,
                                 @ModelAttribute("formular") BenutzerFormular benutzerFormular, //sucht in Model -> Session -> Pfadvariablen oder erstellt neues Instanz
-                                @ModelAttribute("formularMap") Map<String, BenutzerFormular> sessionBenutzerMap,
                                // Locale locale,
                                 Model model) {
         
@@ -51,21 +57,23 @@ public class BenutzerController {
 
        // model.addAttribute("sprache", locale.getDisplayLanguage());
 
-        if(sessionBenutzerMap == null){
-            sessionBenutzerMap = new HashMap<>();
-            model.addAttribute("name", name);
+       Benutzer benutzer;
+       try{
+            benutzer = benutzerService.findBenutzerById(loginName).orElseThrow(() -> new NoSuchElementException());
+       }catch(NoSuchElementException e){
+            model.addAttribute("name", loginName);
             return "benutzer/bearbeiten.html";
-        }
-        if(sessionBenutzerMap.containsKey(name)){
-            benutzerFormular = sessionBenutzerMap.get(name);
-            model.addAttribute("formular", benutzerFormular);
-        }
-        model.addAttribute("name", name);
+       }
+       
+        benutzerFormular = benutzerMapper.benutzerToBenutzerFormular(benutzer);
+        model.addAttribute("name", benutzerFormular.getName());
+        model.addAttribute("formular", benutzerFormular);
+
         return "benutzer/bearbeiten.html";
     }
 
     @PostMapping("/benutzer/{loginName}")
-    public String postMethodName(@PathVariable("loginName") String name,
+    public String postMethodName(@PathVariable("loginName") String loginName,
                                     @Valid @ModelAttribute("formular") BenutzerFormular benutzerFormular,
                                     BindingResult result,
                                     Model model
@@ -79,18 +87,20 @@ public class BenutzerController {
             result.rejectValue("losungWiederh", "Losungen müssen übereinstimmen", "Losungen müssen übereinstimmen");
             result.rejectValue("losung", "Losungen müssen übereinstimmen", "Losungen müssen übereinstimmen");
         }
-        model.addAttribute("name", benutzerFormular.getName());
-        model.addAttribute("formular", benutzerFormular);
+        
         // @SuppressWarnings("unckecked")
         //sessionBenutzerMap = (Map<String, BenutzerFormular>) model.getAttribute("formularMap"); //Model gibt immer ein Objekt zurück
 
-        if(sessionBenutzerMap == null){
-            sessionBenutzerMap = new HashMap<String, BenutzerFormular>();
+        Benutzer benutzer = benutzerMapper.benutzerFormularToBenutzer(benutzerFormular);
+        if(benutzerService.findBenutzerById(loginName).isEmpty()){
+            benutzer.setLoginName(loginName);
+            benutzer = benutzerService.saveBenutzer(benutzer);
+        }else{
+
         }
 
-        sessionBenutzerMap.put(benutzerFormular.getName(), benutzerFormular);
-
-        model.addAttribute("formularMap", sessionBenutzerMap);
+        model.addAttribute("name", benutzerFormular.getName());
+        model.addAttribute("formular", benutzerFormular);
         
         return "benutzer/bearbeiten.html";
     }
