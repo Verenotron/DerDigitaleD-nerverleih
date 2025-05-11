@@ -1,9 +1,7 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.ui.benutzer;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -47,12 +44,12 @@ public class BenutzerController {
     public String getBenutzer(@PathVariable("loginName") String name,
                                 @ModelAttribute("formular") BenutzerFormular benutzerFormular, //sucht in Model -> Session -> Pfadvariablen oder erstellt neues Instanz
                                 @ModelAttribute("formularMap") Map<String, BenutzerFormular> sessionBenutzerMap,
-                                Locale locale,
+                               // Locale locale,
                                 Model model) {
         
         //sessionBenutzerMap = (Map<String, BenutzerFormular>) model.getAttribute("formularMap");
 
-        model.addAttribute("sprache", locale.getDisplayLanguage());
+       // model.addAttribute("sprache", locale.getDisplayLanguage());
 
         if(sessionBenutzerMap == null){
             sessionBenutzerMap = new HashMap<>();
