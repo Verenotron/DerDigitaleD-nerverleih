@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer.Benutzer;
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer.BenutzerRepository;
+import de.hsrm.mi.web.derdigitaledoenerverleih.ui.benutzer.BenutzerException;
 
 @Service
 public class BenutzerServiceImpl implements BenutzerService{
@@ -15,8 +16,14 @@ public class BenutzerServiceImpl implements BenutzerService{
     @Autowired BenutzerRepository benutzerRepository;
 
     @Override
-    public Benutzer saveBenutzer(Benutzer benutzer) {
-        Benutzer b = benutzerRepository.save(benutzer);
+    public Benutzer saveBenutzer(Benutzer benutzer) throws BenutzerException {
+        Benutzer b;
+        try{
+            b = benutzerRepository.save(benutzer);
+        }catch(Exception e){
+            throw new BenutzerException("Fehler beim Speichern des Benutzers...");
+        }
+        
         return b;
     }
 

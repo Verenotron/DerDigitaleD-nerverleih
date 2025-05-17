@@ -15,10 +15,11 @@
 
     </header>
     <!-- <h1 th:text="|Benutzer ${name} beareiten|">Benutzer bearbeiten</h1> |...| dient als Textvorlage -->
-    <h1 th:text="#{benutzerformular.titel(${name})}"></h1>
+    <h1 th:text="#{benutzerformular.titel(${loginName})}"></h1>
     <p th:if="${info}" th:text="${info}"></p>
 
     <form th:action="${name}" th:object="${formular}" method="post"> <!--bindet formulat Objekt, damit man per *{...} darauf zugreifen kann-->
+        <input type="hidden" th:field="*{version}" />
         <table>
             <tr>
                 <td th:text="#{benutzer.name}"></td>
@@ -41,7 +42,7 @@
                 <td>
                     <!-- Name der radiobuttons müssen gleich sein, damit nur einer ausgewählt werden kann-->
                     <div th:each="rb, iter : *{ernaerungsAuswahl}">
-                        <input type="radio" name="vegetarizitaet" th:field="*{vegetarizitaet}" value=${iter.index}>
+                        <input type="radio" name="vegetarizitaet" th:field="*{vegetarizitaet}" th:value=${iter.index}>
                         <span th:text="${rb}"></span>
                     </div>
                 </td>
@@ -50,7 +51,7 @@
                 <td th:text="benutzer.rolle"></td>
                 <td>
                     <select th:field="*{rolle}" name="rolle" id="">
-                        <option th:each="op, iter : *{rollen}" value="${op}" th:text="${op}"></option>
+                        <option th:each="op, iter : *{rollen}" th:value="${op}" th:text="${op}"></option>
                         <!-- <option value="ADMIN" th:selected="*{rolle} == ADMIN">ADMIN</option>
                         <option value="KUNDE" th:selected="*{rolle} == KUNDE">KUNDE</option>
                         <option value="GESPERRT" th:selected="*{rolle} == GESPERRT">GESPERRT</option> -->

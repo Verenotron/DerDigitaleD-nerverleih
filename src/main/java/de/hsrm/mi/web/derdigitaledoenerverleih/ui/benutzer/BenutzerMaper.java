@@ -6,6 +6,8 @@ public class BenutzerMaper {
 
     BenutzerFormular benutzerToBenutzerFormular(Benutzer benutzer){
         BenutzerFormular benutzerFormular = new BenutzerFormular();
+        benutzerFormular.setLoginName(benutzer.getLoginName());
+        benutzerFormular.setVersion(benutzer.getVersion());
         benutzerFormular.setName(benutzer.getName());
         benutzerFormular.setEmail(benutzer.getEmail());
         benutzerFormular.setVegetarizitaet(benutzer.getVegetarizitaet());
@@ -16,6 +18,8 @@ public class BenutzerMaper {
 
     Benutzer benutzerFormularToBenutzer(BenutzerFormular formular){
         Benutzer benutzer = new Benutzer();
+        benutzer.setLoginName(formular.getLoginName());
+        benutzer.setVersion(formular.getVersion());
         benutzer.setName(formular.getName());
         benutzer.setEmail(formular.getEmail());
         benutzer.setVegetarizitaet(formular.getVegetarizitaet());

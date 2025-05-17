@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Alle Benutzer</h1>
+
+    <table>
+        <tr>
+            <td>Login-Name</td>
+            <td>Name</td>
+            <td>Digitalpostanschrift</td>
+            <td>Rolle</td>
+        </tr>
+        <tr th:each="benutzer : ${benutzerListe}">
+            <td th:text="${benutzer.loginName}"></td>
+            <td th:text="${benutzer.name}"></td>
+            <td th:text="${benutzer.email}"></td>
+            <td th:text="${benutzer.vegetarizitaet}"></td>
+            <td th:text="${benutzer.rolle}"></td>
+            <td>
+                <form th:action="@{/benutzer/{loginName}(loginName=${benutzer.loginName})}" method="get">
+                    <button>bearbeiten</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/benutzer/{loginName}/del(loginName=${benutzer.loginName})}" method="post">
+                    <td><button>löschen</button></td>
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>

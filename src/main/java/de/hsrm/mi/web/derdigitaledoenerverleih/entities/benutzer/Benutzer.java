@@ -1,9 +1,9 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer;
 
 import de.hsrm.mi.web.derdigitaledoenerverleih.ui.validators.Losung;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -14,6 +14,9 @@ public class Benutzer {
     @Id
     //@Column(unique=true, nullable=false)//von Chatti
     private String loginName;
+
+    @Version
+    long version;
 
     @NotEmpty
     @Size(min=2, max=60, message="Name muss min 2 und max 60 Zeichen lang sein.")
@@ -62,7 +65,7 @@ public class Benutzer {
     public void setLosung(String losung) {
         this.losung = losung;
     }
-
+    
     @Override
     public String toString() {
         return "Benutzer [loginName=" + loginName + ", name=" + name + ", email=" + email + ", vegetarizitaet="
@@ -75,6 +78,12 @@ public class Benutzer {
         if (!(o instanceof Benutzer)) return false;
         Benutzer benutzer = (Benutzer) o;
         return loginName.equals(benutzer.loginName);
+    }
+    public long getVersion() {
+        return version;
+    }
+    public void setVersion(long version) {
+        this.version = version;
     }
 
 }

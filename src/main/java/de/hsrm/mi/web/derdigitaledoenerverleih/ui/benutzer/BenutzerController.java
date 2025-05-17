@@ -1,5 +1,7 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.ui.benutzer;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer.Benutzer;
 import de.hsrm.mi.web.derdigitaledoenerverleih.services.benutzer.BenutzerService;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -45,6 +47,7 @@ public class BenutzerController {
        try{
             benutzer = benutzerService.findBenutzerById(loginName).orElseThrow(() -> new BenutzerException("Benutzer nicht gefunden"));
        }catch(BenutzerException e){
+            //model.addAttribute("info", e.getMessage());
             model.addAttribute("name", loginName);
             return "benutzer/bearbeiten.html";
        }
@@ -54,6 +57,20 @@ public class BenutzerController {
         model.addAttribute("formular", benutzerFormular);
 
         return "benutzer/bearbeiten.html";
+    }
+
+    @GetMapping("benutzer/liste")
+    public String getMethodName(Model model) {
+        List<Benutzer> alleBenutzer = new LinkedList<Benutzer>(benutzerService.findAllBenutzer());
+        alleBenutzer.sort((a, b) -> (a.getName().compareTo(b.getName())));
+        model.addAttribute("benutzerListe", alleBenutzer);
+        
+        return "benutzer/liste.html";
+    }
+    @PostMapping("/benutzer/{name}/del")
+    public String loescheBenutzer(@PathVariable("name") String name){
+        benutzerService.deleteBenutzerById(name);
+        return "redirect:/benutzer/liste";
     }
 
     @PostMapping("/benutzer/{loginName}")
@@ -73,12 +90,22 @@ public class BenutzerController {
         }
 
         Benutzer benutzer = benutzerMapper.benutzerFormularToBenutzer(benutzerFormular);
-        if(benutzerService.findBenutzerById(loginName).isEmpty()){
-            benutzer.setLoginName(loginName);
-            benutzer = benutzerService.saveBenutzer(benutzer);
-        }else{
 
-        }
+            try{
+                benutzer.setLoginName(loginName);
+                benutzer = benutzerService.saveBenutzer(benutzer);
+            }catch(BenutzerException e){
+                model.addAttribute("info", e.getMessage());
+                try{
+                    benutzer = benutzerService.findBenutzerById(loginName).orElseThrow(() -> new BenutzerException("Benutzer konnte nicht gefunden werden"));
+                }catch(Exception f){
+                    model.addAttribute("info", f.getMessage());
+                    benutzerFormular = benutzerMapper.benutzerToBenutzerFormular(benutzer); //Damit alte daten übernommen werden und nciht die daten die versucht wurden zu speichern
+                }
+            }
+            
+       // }
+        //benutzerFormular = benutzerMapper.benutzerToBenutzerFormular(benutzer);
 
         model.addAttribute("name", benutzerFormular.getName());
         model.addAttribute("formular", benutzerFormular);

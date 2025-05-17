@@ -10,6 +10,8 @@ public class BenutzerFormular {
     private String[] ernaerungsAuswahl;
     private String[] rollen;
 
+    long version;
+    private String loginName;
     //Properties -> private Instalsvariablen mit Getter Setter
     @NotEmpty
     @Size(min=2, max=60, message="Name muss min 2 und max 60 Zeichen lang sein.")
@@ -32,6 +34,10 @@ public class BenutzerFormular {
         this.vegetarizitaet = "0";
         this.rolle = "";
         this.losung = "";
+    }
+
+    public void updateRolle(){
+        
     }
     public String getName() {
         return name;
@@ -80,6 +86,20 @@ public class BenutzerFormular {
     }
     public void setLosungWiederh(String losungWiederh) {
         this.losungWiederh = losungWiederh;
+    }
+    public long getVersion() {
+        return version;
+    }
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
     
 
