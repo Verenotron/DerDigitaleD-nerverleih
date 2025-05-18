@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:th="http://www.thymeleaf.org"></html>
+    <title>Doener Liste</title>
+</head>
+<body>
+
+    <h1>Doener Liste</h1>
+
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Bezeichnung</td>
+            <td>Preis</td>
+            <td>vegetarizitaet</td>
+            <td>Bestand</td>
+        </tr>
+        <tr th:each="doener : ${doenerListe}">
+            <td th:text="${doener.id}"></td>
+            <td th:text="${doener.bezeichnung}"></td>
+            <td th:text="${doener.preis}"></td>
+            <td th:text="${doener.vegetarizitaet}"></td>
+            <td th:text="${doener.bestand}"></td>
+            <td>
+                <form th:action="@{/doener/{id}(id=${doener.id})}">
+                    <button>bearbeiten</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/doener/{id}/del(id=${doener.id})}" method="post">
+                    <button>löschen</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
