@@ -7,7 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 th:text="'Doener ' + ${doenerFormular.id} + ' bearbeiten'"></h1>
+    <h1 th:text="'Doener ' + ${doenerFormular.id} + ' bearbeiten : ' + #{doener.vegetarizitaet.__${doenerFormular.vegetarizitaet}__}"></h1>
+    <span th:text="#{doener.vegetarizitaet.__${doenerFormular.vegetarizitaet}__}">...</span>
     <form th:action="@{/doener/{id}(id=${doenerFormular.id})}" method="post" th:object="${doenerFormular}">
         <table>
             <tr>

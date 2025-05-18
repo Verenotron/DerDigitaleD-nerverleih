@@ -21,15 +21,15 @@ public class InternationalConfiguration implements WebMvcConfigurer{
         return resolver;
     }
 
-    // @Bean
-    // public ResourceBundleMessageSource messageSource() {
-    //     /*ResourceBundleMessageSource ist die Spring-Implementierung zum Laden von .properties-Dateien für Internationalisierung. */
-    //     //erkennt Sprachenwechsel und fordert LocaleResolver auf, die Sprache zu setzen
-    //     ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-    //     messageSource.setBasename("lang/messages");
-    //     messageSource.setDefaultEncoding("UTF-8");
-    //     return messageSource;
-    // }
+    @Bean
+    public ResourceBundleMessageSource messageSource() {
+        /*ResourceBundleMessageSource ist die Spring-Implementierung zum Laden von .properties-Dateien für Internationalisierung. */
+        //erkennt Sprachenwechsel und fordert LocaleResolver auf, die Sprache zu setzen
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("lang/messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor(){ //überwacht z.B. gewünschte Request-Parameter für Sprachumstellung

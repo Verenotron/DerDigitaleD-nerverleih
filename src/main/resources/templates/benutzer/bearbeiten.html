@@ -15,7 +15,7 @@
 
     </header>
     <!-- <h1 th:text="|Benutzer ${name} beareiten|">Benutzer bearbeiten</h1> |...| dient als Textvorlage -->
-    <h1 th:text="#{benutzerformular.titel(${loginName})}"></h1>
+    <h1 th:text="#{kopf.titel}"></h1>
     <p th:if="${info}" th:text="${info}"></p>
 
     <form th:action="${name}" th:object="${formular}" method="post"> <!--bindet formulat Objekt, damit man per *{...} darauf zugreifen kann-->
@@ -48,7 +48,7 @@
                 </td>
             </tr>
             <tr>
-                <td th:text="benutzer.rolle"></td>
+                <td th:text="#{benutzer.rolle}"></td>
                 <td>
                     <select th:field="*{rolle}" name="rolle" id="">
                         <option th:each="op, iter : *{rollen}" th:value="${op}" th:text="${op}"></option>
