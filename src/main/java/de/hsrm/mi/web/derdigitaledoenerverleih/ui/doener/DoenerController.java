@@ -87,10 +87,14 @@ public String speichereDoener(@ModelAttribute("doenerFormular") DoenerFormular f
                                 Model model){
 
     Doener datenbankDoener = new Doener();
+    List<Zutat> alleZutaten = new ArrayList<>(zutatenService.findAllZutaten());
+
+    model.addAttribute("alleZutaten", alleZutaten);
     if(result.hasErrors()){
         model.addAttribute("info", "Validierungsfehler");
         return "doener/bearbeiten.html";
     }
+    formular.setVegetarizitaet(this.setZutatenVeganizität(formular.getZutaten()));
     if(id == 0){
         //! Repo sollte automatishc erkennen, ob id bereits vorhanden ist oder nicht. Falls id also null, kennt er diese nicht und generiert eine neue.
         datenbankDoener = DoenerMapper.formularToDoener(formular);
@@ -100,10 +104,8 @@ public String speichereDoener(@ModelAttribute("doenerFormular") DoenerFormular f
             model.addAttribute("info", e.getMessage());
         }
         formular = DoenerMapper.doenerToFormular(datenbankDoener);
+        
         model.addAttribute("doenerFormular", formular);
-
-        List<Zutat> alleZutaten = new ArrayList<>(zutatenService.findAllZutaten());
-        model.addAttribute("alleZutaten", alleZutaten);
 
         return "doener/bearbeiten.html";
     }else{
@@ -122,10 +124,8 @@ public String speichereDoener(@ModelAttribute("doenerFormular") DoenerFormular f
             // doener.setZutaten(echteZutaten);
             datenbankDoener = doenerService.saveDoener(doener);
             formular = DoenerMapper.doenerToFormular(datenbankDoener);
+            
             model.addAttribute("doenerFormular", formular);
-
-            List<Zutat> alleZutaten = new ArrayList<>(zutatenService.findAllZutaten());
-            model.addAttribute("alleZutaten", alleZutaten);
 
             return "doener/bearbeiten.html";
         }catch(DoenerException e){
@@ -135,6 +135,16 @@ public String speichereDoener(@ModelAttribute("doenerFormular") DoenerFormular f
     }
     
 
+}
+
+private int setZutatenVeganizität(List<Zutat> zutaten){
+    int doenerVeganizitaet = 2;
+    for(Zutat zutat : zutaten){
+        if(doenerVeganizitaet > zutat.getVegetarizitaet()){
+            doenerVeganizitaet = zutat.getVegetarizitaet();
+        }
+    }
+    return doenerVeganizitaet;
 }
     
 }

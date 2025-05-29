@@ -48,6 +48,6 @@ doener.vegetarizitaet.vegan;vegan;vegan;vegan
 doener.zutaten;Ingredients;Zutaten;Ingrediënten
 zutat.fehler.ean;EAN must consist of 13 digits;EAN muss aus 13 Ziffern bestehen;Een EAN moet uit 13 cijfers bestaan
 
-doener.vegetarizitaet.2;non-vegetarian;unvegetarisch;onvegetarisch
+doener.vegetarizitaet.0;non-vegetarian;unvegetarisch;onvegetarisch
 doener.vegetarizitaet.1;vegetarian;vegetarisch;vegetarisch
-doener.vegetarizitaet.0;vegan;vegan;vegan
+doener.vegetarizitaet.2;vegan;vegan;vegan
