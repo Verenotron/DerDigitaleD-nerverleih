@@ -137,6 +137,7 @@ public String speichereDoener(@ModelAttribute("doenerFormular") DoenerFormular f
 
 }
 
+// TODO Diese Methode muss in den Service ausgelagert werden. Dann muss man sie vor dem Speichern nicht jedesmal neu aufrufen
 private int setZutatenVeganizität(List<Zutat> zutaten){
     int doenerVeganizitaet = 2;
     for(Zutat zutat : zutaten){
