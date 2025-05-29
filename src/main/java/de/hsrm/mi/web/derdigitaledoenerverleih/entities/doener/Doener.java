@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
@@ -33,7 +34,7 @@ public class Doener {
     @Positive
     private int bestand;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Zutat> zutaten = new ArrayList<Zutat>();
 
     public long getId() {

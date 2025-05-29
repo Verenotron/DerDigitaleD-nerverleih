@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer.Benutzer;
 import de.hsrm.mi.web.derdigitaledoenerverleih.services.benutzer.BenutzerService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 

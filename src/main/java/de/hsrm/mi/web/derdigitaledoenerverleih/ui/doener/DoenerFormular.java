@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.zutat.Zutat;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;

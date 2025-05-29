@@ -12,6 +12,7 @@ public class DoenerMapper {
         doener.setPreis(formular.getPreis());
         doener.setVegetarizitaet(formular.getVegetarizitaet());
         doener.setBestand(formular.getBestand());
+        doener.setZutaten(formular.getZutaten());
         return doener;
     }
 
@@ -23,6 +24,7 @@ public class DoenerMapper {
         formular.setPreis(doener.getPreis());
         formular.setVegetarizitaet(doener.getVegetarizitaet());
         formular.setBestand(doener.getBestand());
+        formular.setZutaten(doener.getZutaten());
         return formular;
     }
 }

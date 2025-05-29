@@ -10,6 +10,7 @@
     <h1 th:text="'Doener ' + ${doenerFormular.id} + ' bearbeiten : ' + #{doener.vegetarizitaet.__${doenerFormular.vegetarizitaet}__}"></h1>
     <span th:text="#{doener.vegetarizitaet.__${doenerFormular.vegetarizitaet}__}">...</span>
     <form th:action="@{/doener/{id}(id=${doenerFormular.id})}" method="post" th:object="${doenerFormular}">
+        <input type="hidden" th:field="*{version}" />
         <table>
             <tr>
                 <td>Bezeichnung</td>
@@ -39,6 +40,26 @@
                 <td>
                     <label for="bestand"></label>
                     <input type="number" id="bestand" th:field="*{bestand}"> <br> <!-- th:field kümmert sich um Werte,Bindung und ID/Name-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Zutaten
+                </td>
+                <td>
+                    <select multiple th:field="*{zutaten}" name="Zutat" id="">
+                        <option th:each="zutat : ${alleZutaten}" th:value="${zutat.ean}" th:text="${zutat.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Ausgewählte Zutaten</td>
+                <td>
+                    <ul>
+                        <li th:each="zutat : *{zutaten}" th:text="${zutat.name}">
+
+                        </li>
+                    </ul>
                 </td>
             </tr>
         </table>
