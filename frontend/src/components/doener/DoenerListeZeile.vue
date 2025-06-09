@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr @click="expanded = !expanded" >
         <td>
             {{ doener.id }}
         </td>
@@ -16,12 +16,18 @@
             ?
         </td>
     </tr>
+    <tr v-if="expanded" v-for="zutat in doener.zutaten" :key="zutat.ean">
+            <ZutatListeZeile :zutat="zutat" />
+    </tr>
 </template>
 
 <script setup lang="ts">
 
-import { defineProps } from 'vue';
+import { ref, defineProps } from 'vue';
 import type { IDoenerDTD } from '@/views/DoenerListView.vue'
+import ZutatListeZeile from '@/components/zutat/ZutatListeZeile.vue';
+
+var expanded = ref(false);
 
     const props = defineProps<{
         doener: IDoenerDTD

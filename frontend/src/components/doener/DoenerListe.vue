@@ -24,8 +24,10 @@
 
 <script setup lang="ts">
     import { defineProps } from 'vue';
-    import DoenerListeZeile from '@/components/doener/DoenerListeZeile.vue'
+    import DoenerListeZeile from '@/components/doener/DoenerListeZeile.vue';
+    import ZutatListeZeile from '@/components/zutat/ZutatListeZeile.vue';
     import type { IDoenerDTD } from "@/views/DoenerListView.vue";
+    import type { IZutatDTD } from '@/views/DoenerListView.vue';
     // import doenerliste, { type IDoenerDTD } from "@/views/DoenerListView.vue";
 
     defineProps<{
