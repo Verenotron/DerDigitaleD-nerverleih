@@ -1,7 +1,7 @@
 <template>
     <div>
       <div >
-        <div >
+        <div>
           <div>
             <p class="title">Unser aktuelles Dönerangebot</p>
             <p class="heading">Nur wenige Klicks trennen Sie von Ihrem Traumdöner</p>

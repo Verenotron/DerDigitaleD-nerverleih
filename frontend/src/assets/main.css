@@ -6,6 +6,10 @@
   box-sizing: border-box; /*sorgt dafür, dass Padding und Border zur Gesamtbreite des Elements zählen.*/
 }
 
+body{
+  padding: 0 5em 0 5em;
+}
+
 .header--container{
   background-color: green;
   padding: 1em 10em;
@@ -35,4 +39,57 @@ border-top-right-radius: 10px;
 
 .info-box--body{
   padding: 1em 2em;
+}
+
+.title{
+  font-size: 20pt;
+  font-weight: bold;
+}
+.heading{
+  margin-bottom: 5em;
+}
+
+.doener-table{
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0 10px;
+  table-layout: fixed;
+}
+
+.doener-table th{
+  text-align: left;
+}
+
+.doener-table-zeile {
+  /* border: 1px solid black; */
+  width: 100%;
+  position: relative;
+}
+
+
+.doener-table-zeile td{
+  padding: 1.7em;
+  /* background-color: blue; */
+  z-index: 1;
+}
+
+.doener-table-zeile td:first-child::before{
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: 0;
+  right: 0;
+  bottom: 7px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  z-index: 0;
+}
+
+.doener-table-zeile td:first-child{
+  border-radius: 20px 0 0 20px;
+}
+
+.doener-table-zeile td:last-child{
+  border-radius: 0 20px 20px 0;
 }

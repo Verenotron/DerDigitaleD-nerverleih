@@ -1,5 +1,5 @@
 <template>
-    <table>
+    <table class="doener-table">
         <thead>
             <tr>
             <th>
@@ -35,3 +35,7 @@
     }>();
 
 </script>
+
+<style>
+@import '@/assets/main.css';
+</style>

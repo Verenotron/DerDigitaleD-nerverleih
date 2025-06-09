@@ -1,5 +1,5 @@
 <template>
-    <tr @click="expanded = !expanded" >
+    <tr @click="expanded = !expanded" class="doener-table-zeile">
         <td>
             {{ doener.id }}
         </td>
@@ -17,7 +17,7 @@
         </td>
     </tr>
     <tr v-if="expanded" v-for="zutat in doener.zutaten" :key="zutat.ean">
-            <ZutatListeZeile :zutat="zutat" />
+        <ZutatListeZeile :zutat="zutat" />
     </tr>
 </template>
 
@@ -33,3 +33,7 @@ var expanded = ref(false);
         doener: IDoenerDTD
     }>()
 </script>
+
+<style>
+@import '@/assets/main.css';
+</style>
