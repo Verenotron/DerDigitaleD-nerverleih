@@ -12,8 +12,11 @@
         <!-- <img src="@/assets/doener-ritter-tiere.png" /> -->
       </div>
     </div>
+    <label for="suche">Suchen</label>
+    <input type="text" v-model="suchtext">
+    <button v-on:click="resetString()">Reset</button>
     <div>
-      <DoenerListe :doenerliste="doenerdata.doenerliste"/>
+      <DoenerListe :doenerliste="filteredDoenerListe"/>
     </div>
   </template>
   
@@ -23,7 +26,23 @@
   import { useDoenerStore } from '@/stores/doenerstore'
   const { doenerdata, updateDoenerListe } = useDoenerStore();
   updateDoenerListe();
-  
+  import { computed } from 'vue';
+
+  const suchtext = ref("");
+
+  const filteredDoenerListe = computed(() => {
+    if(suchtext.value === ''){
+      return doenerdata.doenerliste;
+    }
+    return doenerdata.doenerliste.filter(doener => {
+      const name = doener.bezeichnung.toLowerCase()
+      return name.includes(suchtext.value.toLowerCase());
+    })
+  })
+
+  function resetString(){
+    suchtext.value = "";
+  }
   
   // export interface IDoenerDTD {
   //   id: number
