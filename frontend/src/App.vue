@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import './assets/main.css';
 import DoenerListe from '@/views/DoenerListView.vue'
+import LoginView from "@/views/LoginView.vue"
 
 // const info = ref("");
 
@@ -59,13 +60,14 @@ const { setzeInfo, loescheInfo, info} = useInfo();
         </button>
       </div>
       <div class="info-box--body">
-        test
+        {{ info }}
       </div>
     </div>
   </div>
 
   <div>
-    <DoenerListe/>
+    <LoginView/>
+    <!-- <DoenerListe/> -->
   </div>
 
 </template>
