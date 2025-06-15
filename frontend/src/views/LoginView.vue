@@ -6,6 +6,8 @@ import { useInfo } from '@/composables/useInfo';
 const { setzeInfo } = useInfo();
 
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const username = ref("");
 const losung = ref("");
 
@@ -13,7 +15,7 @@ function loginFunction(){
     if(losung && username){
         login(username.value, losung.value);
         if(loginstate.loggedin == true){
-           // router.push('/doenerliste'); 
+           router.push('/doenerliste'); 
            setzeInfo("Hat wohl geklappt!! :D");
         }else{
             setzeInfo("Bitte Usernamen und Losung korrekt eingeben");

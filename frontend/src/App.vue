@@ -4,6 +4,9 @@ import './assets/main.css';
 import DoenerListe from '@/views/DoenerListView.vue'
 import LoginView from "@/views/LoginView.vue"
 
+import { useLogin } from '@/stores/loginstore';
+const { loginstate } = useLogin();
+
 // const info = ref("");
 
 // function fuelleInfo(){
@@ -15,6 +18,7 @@ import LoginView from "@/views/LoginView.vue"
 // }
 
 import { useInfo } from '@/composables/useInfo';
+import { RouterView } from 'vue-router';
 const { setzeInfo, loescheInfo, info} = useInfo();
 
 </script>
@@ -39,10 +43,13 @@ const { setzeInfo, loescheInfo, info} = useInfo();
     <div class="header--container">
       <div class="header--content">
         <a href="#">Doenerverleih UdE</a>
-        <a href="#">Katalog</a>
+        <a v-if="loginstate.loggedin"  href="/doenerliste">Katalog</a>
       </div>
       <div>
         <a href="#">DE</a>
+      </div>
+      <div>
+        <a href="/login">Login</a>
       </div>
     </div>
   </header>
@@ -66,8 +73,9 @@ const { setzeInfo, loescheInfo, info} = useInfo();
   </div>
 
   <div>
-    <LoginView/>
+    <!-- <LoginView/> -->
     <!-- <DoenerListe/> -->
+     <RouterView/>
   </div>
 
 </template>

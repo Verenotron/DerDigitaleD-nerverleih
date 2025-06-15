@@ -1,13 +1,24 @@
+import DoenerListView from '@/views/DoenerListView.vue'
+import LoginView from '@/views/LoginView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: HomeView,
-    // },
+    {
+      path: "/",
+      redirect: "/doenerliste"
+    },
+    {
+      path: '/login',
+      name: 'home',
+      component: LoginView,
+    },
+    {
+      path: '/doenerliste',
+      name: 'doenerListe',
+      component: DoenerListView
+    }
     // {
     //   path: '/about',
     //   name: 'about',
