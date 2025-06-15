@@ -1,17 +1,14 @@
 <template>
-    <div>
-        
-    </div>
     <td>
-
+        
     </td>
     <td>
+        <img :src="`/images/zutaten/${zutat.ean}.png`" :alt="zutat.name" />
+    </td>
+    <td class="zutat-zeile">
         {{ zutat.name }}
     </td>
-    <td>
-        {{ zutat.ean }}
-    </td>
-    <td>
+    <td class="zutat-zeile">
         {{ zutat.vegetarizitaet }}
     </td>
 </template>
@@ -25,4 +22,5 @@ import type { IDoenerDTD } from '@/views/DoenerListView.vue';
     defineProps<{
         zutat: IZutatDTD;
     }>()
+    
 </script>

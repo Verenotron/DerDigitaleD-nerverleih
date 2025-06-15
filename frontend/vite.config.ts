@@ -15,4 +15,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: { //dieser teil ist von mir für das laden der Icons aus dem backend
+    proxy: {
+      '/api': 'http://localhost:8080',
+      '/images': 'http://localhost:8080',
+      '/stompbroker': {
+        target: 'http://localhost:8080/',
+        ws: true,
+      },
+    },
+  }
 })

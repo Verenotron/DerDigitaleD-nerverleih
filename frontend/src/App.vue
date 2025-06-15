@@ -3,15 +3,18 @@ import { ref } from 'vue';
 import './assets/main.css';
 import DoenerListe from '@/views/DoenerListView.vue'
 
-const info = ref("");
+// const info = ref("");
 
-function fuelleInfo(){
-  if(info.value == ""){
-    info .value = "test";
-  }else{
-    info.value = "";
-  }
-}
+// function fuelleInfo(){
+//   if(info.value == ""){
+//     info .value = "test";
+//   }else{
+//     info.value = "";
+//   }
+// }
+
+import { useInfo } from '@/composables/useInfo';
+const { setzeInfo, loescheInfo, info} = useInfo();
 
 </script>
 
@@ -43,7 +46,7 @@ function fuelleInfo(){
     </div>
   </header>
 
-  <button v-on:click="fuelleInfo()">OK</button>
+  <button v-on:click="setzeInfo('info')">OK</button>
 
   <div v-if="info" class="info-box--wrapper">
     <div class="info-box">
@@ -51,7 +54,7 @@ function fuelleInfo(){
         <div>
           Information
         </div>
-        <button v-on:click="fuelleInfo()">
+        <button v-on:click="loescheInfo()">
           X
         </button>
       </div>

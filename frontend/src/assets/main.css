@@ -93,3 +93,7 @@ border-top-right-radius: 10px;
 .doener-table-zeile td:last-child{
   border-radius: 0 20px 20px 0;
 }
+
+.zutat-zeile{
+  padding: 10px;
+}

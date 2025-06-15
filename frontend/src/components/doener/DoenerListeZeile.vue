@@ -4,13 +4,13 @@
             {{ doener.id }}
         </td>
         <td>
-            {{  doener.bezeichnung }}
+            {{ doener.bezeichnung }}
         </td>
         <td>
             {{ doener.preis }}
         </td>
         <td>
-            {{  doener.vegetarizitaet }}
+            {{ doener.vegetarizitaet }}
         </td>
         <td>
             ?
