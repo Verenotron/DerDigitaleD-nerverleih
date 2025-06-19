@@ -1,5 +1,5 @@
-import { ref } from 'vue';
-var info = ref("");
+import { ref, readonly } from 'vue';
+var info = ref(""); // reactive<>() wäre für ganze Objekte z.B. Doener
 
 export function useInfo(){ //funktionen selbst sind Objekte und können funktionen enthalten.
     function setzeInfo(value : string){
@@ -17,6 +17,6 @@ export function useInfo(){ //funktionen selbst sind Objekte und können funktion
     return{
         setzeInfo,
         loescheInfo,
-        info
+        info : readonly(info) //verhindert schreibenden zugriff über info.value.
     }
 }

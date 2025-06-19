@@ -21,6 +21,8 @@ import { useInfo } from '@/composables/useInfo';
 import { RouterView } from 'vue-router';
 const { setzeInfo, loescheInfo, info} = useInfo();
 
+setzeInfo("Lars");
+
 </script>
 
 <template>
