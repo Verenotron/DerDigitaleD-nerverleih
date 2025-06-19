@@ -21,6 +21,7 @@ public class DoenerErfindungsService {
 
     public Doener generiereDoener(){
         Doener doener = new Doener();
+        //doener.setId(0);
         doener.setBezeichnung(this.getName());
         doener.setBestand(this.getBestand());
         doener.setPreis(this.getPreis());

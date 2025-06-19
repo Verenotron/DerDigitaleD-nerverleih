@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import de.hsrm.mi.web.derdigitaledoenerverleih.api.doener.DoenerDTO;
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.doener.Doener;
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.zutat.Zutat;
+import de.hsrm.mi.web.derdigitaledoenerverleih.services.doener.DoenerErfindungsService;
 import de.hsrm.mi.web.derdigitaledoenerverleih.services.doener.DoenerServiceImpl;
 import de.hsrm.mi.web.derdigitaledoenerverleih.services.doener.ZutatenServicImpl;
 
@@ -24,11 +26,17 @@ public class DoenerController {
     @Autowired DoenerServiceImpl doenerService;
     @Autowired ZutatenServicImpl zutatenService;
 
+    @Autowired DoenerErfindungsService doenerErfindungsService;
+
     @ModelAttribute("doenerFormular")
     public DoenerFormular initFormular(){
         return new DoenerFormular();
     }
 
+@GetMapping("/")
+public String redirect(){
+    return "forward:/doener/liste";
+}
 @GetMapping("/doener/liste")
 public String getDoenerListe(Model model){
     List<Doener> alleDoener = new ArrayList<>(doenerService.findAllDoener());
@@ -78,6 +86,18 @@ public String getDoerne(@PathVariable("id") long id,
         model.addAttribute("doenerFormular", formular);
         return "doener/bearbeiten.html";
     }
+}
+
+@GetMapping("/generiereDoener")
+public String generiereDoener(){
+    Doener doener = doenerErfindungsService.generiereDoener();
+        try{
+            doener = doenerService.saveDoener(doener);
+        }catch(Exception e){
+            System.out.println("Etwas ist beim generieren des doeners schief gelaufen.");
+        }
+
+        return "forward:/doener/liste";
 }
 
 @PostMapping("/doener/{id}")
@@ -134,7 +154,6 @@ public String speichereDoener(@ModelAttribute("doenerFormular") DoenerFormular f
         }
     }
     
-
 }
 
 // TODO Diese Methode muss in den Service ausgelagert werden. Dann muss man sie vor dem Speichern nicht jedesmal neu aufrufen
