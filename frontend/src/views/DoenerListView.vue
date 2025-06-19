@@ -23,9 +23,10 @@
   <script setup lang="ts">
   import { ref } from 'vue';
   import DoenerListe from '@/components/doener/DoenerListe.vue';
-  import { useDoenerStore } from '@/stores/doenerstore'
-  const { doenerdata, updateDoenerListe } = useDoenerStore();
+  import { useDoenerStore } from '@/stores/doenerstore';
+  const { doenerdata, updateDoenerListe, startDoenerLiveUpdate } = useDoenerStore();
   updateDoenerListe();
+  startDoenerLiveUpdate();
   import { computed } from 'vue';
 
   const suchtext = ref("");
@@ -35,7 +36,7 @@
       return doenerdata.doenerliste;
     }
     return doenerdata.doenerliste.filter(doener => {
-      const name = doener.bezeichnung.toLowerCase()
+      const name = doener.bezeichnung.toLowerCase();
       return name.includes(suchtext.value.toLowerCase());
     })
   })

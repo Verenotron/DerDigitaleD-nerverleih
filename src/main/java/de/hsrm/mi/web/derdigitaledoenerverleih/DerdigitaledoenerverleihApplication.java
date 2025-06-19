@@ -18,8 +18,7 @@ public class DerdigitaledoenerverleihApplication {
 		for (String bean : beans) {
 			if(bean.contains("Controller")){
 				System.out.println(bean);
-			}	
+			}
+    	}
     }
-    }
-
 }
