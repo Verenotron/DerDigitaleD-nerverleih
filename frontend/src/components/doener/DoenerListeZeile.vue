@@ -13,6 +13,9 @@
             {{ doener.vegetarizitaet }}
         </td>
         <td>
+            {{ doener.verfuegbar}}
+        </td>
+        <td>
             ?
         </td>
     </tr>

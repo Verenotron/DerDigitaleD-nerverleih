@@ -14,6 +14,9 @@
             <th>
                 Vegetarizitaet
             </th>
+            <th>
+                verfügbarkeit
+            </th>
         </tr>
         </thead>
         <tbody>

@@ -32,6 +32,7 @@ public class Doener {
     private int vegetarizitaet;
     @Positive
     private int bestand;
+    int entliehen = 0;
     
     @ManyToMany
     private List<Zutat> zutaten = new ArrayList<Zutat>();
@@ -78,8 +79,9 @@ public class Doener {
     public void setZutaten(List<Zutat> zutaten) {
         this.zutaten = zutaten;
     }
-    
-
+    public int getVerfuegbar(){
+        return bestand - entliehen;
+    }
     
     
 }

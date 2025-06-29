@@ -1,8 +1,12 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer;
 
+import java.util.List;
+
+import de.hsrm.mi.web.derdigitaledoenerverleih.entities.doener.Doener;
 import de.hsrm.mi.web.derdigitaledoenerverleih.ui.validators.Losung;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -28,6 +32,8 @@ public class Benutzer {
     private String rolle;
     @Losung(value = "42", value2 = "Zweiundvierzig", message="Die Losung muss 42 oder Zweiundvierzig enthalten.")
     private String losung;
+    @ManyToMany
+    List<Doener> entlieheneDoener;
     
     public String getLoginName() {
         return loginName;
@@ -85,5 +91,12 @@ public class Benutzer {
     public void setVersion(long version) {
         this.version = version;
     }
+    public List<Doener> getEntlieheneDoener() {
+        return entlieheneDoener;
+    }
+    // public void setEntlieheneDoener(List<Doener> entlieheneDoener) {
+    //     this.entlieheneDoener = entlieheneDoener;
+    // }
+    
 
 }

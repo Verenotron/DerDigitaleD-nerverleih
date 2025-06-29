@@ -6,4 +6,5 @@ export interface IDoenerDTD {
     preis: number
     vegetarizitaet: number
     zutaten: Array<IZutatDTD>
+    verfuegbar: number
   }

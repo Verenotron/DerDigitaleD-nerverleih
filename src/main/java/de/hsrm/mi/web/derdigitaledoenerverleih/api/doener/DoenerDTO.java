@@ -12,7 +12,8 @@ public record DoenerDTO(
     int preis,
     int vegetarizitaet,
     int bestand,
-    List<Zutat> zutaten
+    List<Zutat> zutaten,
+    int verfuegbar
 ) {
 
     public static DoenerDTO fromEntity(Doener doener) {
@@ -23,7 +24,8 @@ public record DoenerDTO(
             doener.getPreis(),
             doener.getVegetarizitaet(),
             doener.getBestand(),
-            doener.getZutaten()
+            doener.getZutaten(),
+            doener.getVerfuegbar()
         );
     }
 
