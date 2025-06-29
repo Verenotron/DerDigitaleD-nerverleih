@@ -33,7 +33,8 @@ public class BenutzerController {
 
     @GetMapping("/benutzer")
     public String getMethodName() {
-        return "forward:/benutzer/neu";
+        return "benutzer/liste.html";
+        // return "forward:/benutzer/neu";
     }
 
     @GetMapping("/benutzer/{loginName}")
@@ -57,6 +58,11 @@ public class BenutzerController {
 
         return "benutzer/bearbeiten.html";
     }
+
+    // @GetMapping("/benutzer/neu")
+    // public String erstelleNeuenBenutzer(){
+    //     return "forward:/benutzer/testName";
+    // }
 
     @GetMapping("benutzer/liste")
     public String getMethodName(Model model) {

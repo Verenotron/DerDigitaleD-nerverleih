@@ -1,5 +1,6 @@
 package de.hsrm.mi.web.derdigitaledoenerverleih.entities.benutzer;
 
+import java.util.Iterator;
 import java.util.List;
 
 import de.hsrm.mi.web.derdigitaledoenerverleih.entities.doener.Doener;
@@ -97,6 +98,21 @@ public class Benutzer {
     // public void setEntlieheneDoener(List<Doener> entlieheneDoener) {
     //     this.entlieheneDoener = entlieheneDoener;
     // }
+
+    public void entleiheDoener(Doener doener){
+        this.entlieheneDoener.add(doener);
+    }
+
+    public void gebeDoenerZurueck(Doener doener, int quantity){
+        Iterator<Doener> it = entlieheneDoener.iterator();
+        while(it.hasNext()){
+            Doener d = it.next();
+            if(d.getBezeichnung().equals(doener.getBezeichnung())){
+                it.remove();
+                break;
+            }
+        }
+    }
     
 
 }

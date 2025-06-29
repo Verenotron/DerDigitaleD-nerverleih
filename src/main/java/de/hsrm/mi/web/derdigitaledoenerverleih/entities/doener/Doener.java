@@ -79,8 +79,20 @@ public class Doener {
     public void setZutaten(List<Zutat> zutaten) {
         this.zutaten = zutaten;
     }
+    public void setEntliehen(int quantity){
+        if((entliehen + quantity) <= bestand){
+            entliehen += quantity;
+        }else{
+            throw new RuntimeException("Die Menge der Doener darf nicht unter 0 fallen");
+        }
+        
+    }
     public int getVerfuegbar(){
         return bestand - entliehen;
+    }
+
+    public void gebeZurueck(int quantity){
+        this.bestand += quantity;
     }
     
     

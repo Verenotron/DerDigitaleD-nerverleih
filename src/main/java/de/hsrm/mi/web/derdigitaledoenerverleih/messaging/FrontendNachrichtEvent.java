@@ -15,7 +15,9 @@ public class FrontendNachrichtEvent {
     public enum Action {
         CREATE,
         UPDATE,
-        DELETE;
+        DELETE,
+        BOOKED,
+        RETURNED;
     }
 
     public FrontendNachrichtEvent(Typ typ, long id, Action create) {
