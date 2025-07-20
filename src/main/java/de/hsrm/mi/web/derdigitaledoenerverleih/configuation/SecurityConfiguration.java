@@ -28,10 +28,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChainApp(HttpSecurity http) throws Exception {
 
-        return http
+        http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/*", "/css/**").permitAll()
+                .requestMatchers("/h2-console/**", "/*", "/css/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -42,7 +43,15 @@ public class SecurityConfiguration {
             //     .logoutSuccessUrl("/login")
             //     .permitAll()
             // )
-            .build();
+
+            .csrf(csrf -> csrf
+            .ignoringRequestMatchers("/h2-console/**") // CSRF-Schutz für H2 deaktivieren
+            )
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.disable()) // erlaubt H2 in iframes
+            );
+
+            return http.build();
 
         // return http.build();
     }

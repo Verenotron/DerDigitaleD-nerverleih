@@ -19,7 +19,11 @@ public class BenutzerServiceImpl implements BenutzerService{
     public Benutzer saveBenutzer(Benutzer benutzer) throws BenutzerException {
         Benutzer b;
         try{
-            b = benutzerRepository.save(benutzer);
+            b = benutzerRepository.save(benutzer); 
+            // ! save methode ist eine vom EntityManager. Stellt Zugriff auf PersistanceContext bereit
+            // ! PersistanceContext ist der Zwischenspeicher (Cache) von Entities, damit man bei gleicher Entität nicht auf DB zugreift(z.B. bei save() aufruf mit gleicher Entität) 
+            // ! Dadurch werden DB-Zugriffe optimiert und effizienter gearbeitet. 
+            // ! -> also Objekte im arbeitsspeicher
         }catch(Exception e){
             throw new BenutzerException("Fehler beim Speichern des Benutzers...");
         }
