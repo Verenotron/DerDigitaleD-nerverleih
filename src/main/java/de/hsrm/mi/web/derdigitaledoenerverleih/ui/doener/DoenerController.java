@@ -33,10 +33,11 @@ public class DoenerController {
         return new DoenerFormular();
     }
 
-@GetMapping("/")
-public String redirect(){
-    return "forward:/doener/liste";
-}
+// @GetMapping("/")
+// public String redirect(){
+//     return "redirect:/doener/liste";
+// }
+
 @GetMapping("/doener/liste")
 public String getDoenerListe(Model model){
     List<Doener> alleDoener = new ArrayList<>(doenerService.findAllDoener());
