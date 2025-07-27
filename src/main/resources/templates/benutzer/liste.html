@@ -37,6 +37,12 @@
     <form th:action="@{benutzer/neu}">
         <button>Neuer Benutzer</button>
     </form>
+
+    <form th:action="@{/benutzer/suche}">
+        <p>Benutzer suchen: </p>
+        <input type="text" name="loginName">
+        <button type="submit">Suchen</button>
+    </form>
     
 </body>
 </html>

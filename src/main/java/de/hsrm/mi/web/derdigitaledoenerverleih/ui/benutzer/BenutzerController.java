@@ -57,6 +57,7 @@ public class BenutzerController {
 
     @ModelAttribute("formular")
     public BenutzerFormular initForm(Model model){ //bei komkretem Rückgabetyp wird methode beim Sessionstart aufgerufen, mit void vor jedem Handler Aufruf
+        model.addAttribute("benutzerFormular", new BenutzerFormular());
         return new BenutzerFormular();
     }
 
@@ -68,7 +69,7 @@ public class BenutzerController {
     @GetMapping()
     public String getMethodName(HttpServletRequest request) {
         System.out.println("Request: " + request);
-        return "benutzer/liste.html";
+        return "forward:/benutzer/liste";
         // return "forward:/benutzer/neu";
     }
 
@@ -93,6 +94,27 @@ public class BenutzerController {
 
         return "benutzer/bearbeiten.html";
     }
+
+    @GetMapping("/suche")
+    public String sucheBenutzer(@RequestParam("loginName") String name, 
+        @ModelAttribute("formular") BenutzerFormular benutzerFormular,
+         Model model){
+            Benutzer benutzer;
+            try{
+                benutzer = benutzerService.findBenutzerById(name).orElseThrow(() -> new BenutzerException("Benutzer konnte nicht gefunden werden."));
+            }catch(Exception e){
+                model.addAttribute("name", name); 
+                return "benutzer/bearbeiten.html";
+            }
+            benutzerFormular = benutzerMapper.benutzerToBenutzerFormular(benutzer);
+            model.addAttribute("name", benutzerFormular.getName());
+            model.addAttribute("formular", benutzerFormular);
+
+            return "benutzer/bearbeiten.html";
+
+
+    }
+
 
     // @GetMapping("/benutzer/neu")
     // public String erstelleNeuenBenutzer(){
