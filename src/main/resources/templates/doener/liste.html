@@ -4,41 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html xmlns:th="http://www.thymeleaf.org"></html>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <title>Doener Liste</title>
 </head>
 <body>
+    <header th:insert="~{fragments/kopffuss :: kopf}"></header>
 
-    <h1>Doener Liste</h1>
+    <div class="content-container">
+        <h1>Doener Liste</h1>
 
-    <table>
-        <tr>
-            <td>ID</td>
-            <td>Bezeichnung</td>
-            <td>Preis</td>
-            <td>vegetarizitaet</td>
-            <td>Bestand</td>
-        </tr>
-        <tr th:each="doener : ${doenerListe}">
-            <td th:text="${doener.id}"></td>
-            <td th:text="${doener.bezeichnung}"></td>
-            <td th:text="${doener.preis}"></td>
-            <td th:text="${doener.vegetarizitaet}"></td>
-            <td th:text="${doener.bestand}"></td>
-            <td>
-                <form th:action="@{/doener/{id}(id=${doener.id})}">
-                    <button>bearbeiten</button>
-                </form>
-            </td>
-            <td>
-                <form th:action="@{/doener/{id}/del(id=${doener.id})}" method="post">
-                    <button>löschen</button>
-                </form>
-            </td>
-        </tr>
-    </table>
-    <form th:action="@{/generiereDoener}">
-        <button>Generiere Doener</button>
-    </form>
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>Bezeichnung</td>
+                <td>Preis</td>
+                <td>vegetarizitaet</td>
+                <td>Bestand</td>
+            </tr>
+            <tr th:each="doener, status : ${doenerListe}" th:classappend="${status.odd} ? 'blue-background' : ''">
+                <td th:text="${doener.id}"></td>
+                <td th:text="${doener.bezeichnung}"></td>
+                <td th:text="${doener.preis}"></td>
+                <td th:text="${doener.vegetarizitaet}"></td>
+                <td th:text="${doener.bestand}"></td>
+                <td>
+                    <form th:action="@{/doener/{id}(id=${doener.id})}">
+                        <button>bearbeiten</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/doener/{id}/del(id=${doener.id})}" method="post">
+                        <button>löschen</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <form th:action="@{/generiereDoener}">
+            <button>Generiere Doener</button>
+        </form>
+
+    </div>
+
+    <footer th:insert="~{fragments/kopffuss :: fuss}"></footer>
     
 </body>
 </html>

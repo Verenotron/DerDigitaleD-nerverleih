@@ -10,7 +10,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.LocaleResolver;
 
 @Configuration
-public class InternationalConfiguration implements WebMvcConfigurer{ 
+public class InternationalConfiguration implements WebMvcConfigurer{ //! lars hat das hier 1 zu 1 aus der Vorlesung kopiert
     //Sprachenwechsel läuft komplett über den LocleResolver(Kein Locale im Controller nötig)
     //Locale Objekt wird hier eingestellt. Über das Session-Objekt im Controller kann ich auch manuell auf dieses Locale zugreifen
     

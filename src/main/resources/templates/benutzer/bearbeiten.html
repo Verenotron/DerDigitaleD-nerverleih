@@ -1,85 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bnutzer Bearbeiten</title>
-    <html xmlns:th="http://www.thymeleaf.org"></html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    </html>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <!-- Wenn Pfad mit / beginnt, wird pfad absolut relativ zur domain interpretiert. In Spring Boot ist /static/ im Klassenpfad versteckt-->
 </head>
 
 <!-- Wen zwei input felder das gleiche Formular-attribut ansprechen, werden die werte in eine Liste geschrieben und ausgegeben. (Mit "," getrennt)-->
+
 <body>
     <header th:insert="~{fragments/kopffuss :: kopf}">
 
     </header>
     <!-- <h1 th:text="|Benutzer ${name} beareiten|">Benutzer bearbeiten</h1> |...| dient als Textvorlage -->
-    <h1 th:text="#{kopf.titel}"></h1>
-    <p th:if="${info}" th:text="${info}"></p>
 
-    <form th:action="${name}" th:object="${formular}" method="post"> <!--bindet formulat Objekt, damit man per *{...} darauf zugreifen kann-->
-        <input type="hidden" th:field="*{version}" />
-        <table>
-            <tr>
-                <td th:text="#{benutzer.name}"></td>
-                <td>
-                    <label for="name"></label>
-                    <input th:value="*{name}" type="text" name="name" th:classappend="${#fields.hasErrors('name') ? 'errorBorder' : ''}">
-                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errorText"></div>
-                </td>
-            </tr>
-            <tr>
-                <td th:text="#{benutzer.email}"></td>
-                <td>
-                    <label for="email"></label>
-                    <input th:value="*{email}" type="text" name="email" th:classappend="${#fields.hasErrors('email') ? 'errorBorder' : ''}">
-                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errorText"></div>
-                </td>
-            </tr>
-            <tr>
-                <td th:text="#{benutzer.vegetarizitaet}"></td>
-                <td>
-                    <!-- Name der radiobuttons müssen gleich sein, damit nur einer ausgewählt werden kann-->
-                    <div th:each="rb, iter : *{ernaerungsAuswahl}">
-                        <input type="radio" name="vegetarizitaet" th:field="*{vegetarizitaet}" th:value=${iter.index}>
-                        <span th:text="${rb}"></span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td th:text="#{benutzer.rolle}"></td>
-                <td>
-                    <select th:field="*{rolle}" name="rolle" id="">
-                        <option th:each="op, iter : *{rollen}" th:value="${op}" th:text="${op}"></option>
-                        <!-- <option value="ADMIN" th:selected="*{rolle} == ADMIN">ADMIN</option>
+    <div class="content-container">
+        <h3 th:text="#{kopf.titel}"></h3>
+        <h1 th:text="|Willkommen zurück, ${formular.name}|"></h1>
+
+        <p th:if="${info}" th:text="${info}"></p>
+
+        <form th:action="${name}" th:object="${formular}" method="post">
+            <!--bindet formulat Objekt, damit man per *{...} darauf zugreifen kann-->
+            <input type="hidden" th:field="*{version}" />
+            <table>
+                <tr>
+                    <td th:text="#{benutzer.name}"></td>
+                    <td>
+                        <label for="name"></label>
+                        <input th:value="*{name}" type="text" name="name"
+                            th:classappend="${#fields.hasErrors('name') ? 'errorBorder' : ''}">
+                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errorText"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{benutzer.email}"></td>
+                    <td>
+                        <label for="email"></label>
+                        <input th:value="*{email}" type="text" name="email"
+                            th:classappend="${#fields.hasErrors('email') ? 'errorBorder' : ''}">
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errorText"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{benutzer.vegetarizitaet}"></td>
+                    <td>
+                        <!-- Name der radiobuttons müssen gleich sein, damit nur einer ausgewählt werden kann-->
+                        <div th:each="rb, iter : *{ernaerungsAuswahl}">
+                            <input type="radio" name="vegetarizitaet" th:field="*{vegetarizitaet}"
+                                th:value=${iter.index}>
+                            <span th:text="${rb}"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{benutzer.rolle}"></td>
+                    <td>
+                        <select th:field="*{rolle}" name="rolle" id="">
+                            <option th:each="op, iter : *{rollen}" th:value="${op}" th:text="${op}"></option>
+                            <!-- <option value="ADMIN" th:selected="*{rolle} == ADMIN">ADMIN</option>
                         <option value="KUNDE" th:selected="*{rolle} == KUNDE">KUNDE</option>
                         <option value="GESPERRT" th:selected="*{rolle} == GESPERRT">GESPERRT</option> -->
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                
-                <td th:text="#{benutzer.losung}"></td>
-                <td>
-                    <label for="losung"></label>
-                    <input type="password" name="losung" th:classappend="${#fields.hasErrors ? errorBorder : ''}">
-                    <div th:if="${#fields.hasErrors('losung')}" th:errors="*{losung}" class="errorText"></div>
-                </td>
-            </tr>
-            <tr>
-                <td th:text="#{benutzer.losungwh}"></td>
-                <td>
-                    <label for="losungWiederh"></label>
-                    <input type="password" name="losungWiederh" th:classappend="${#fields.hasErrors ? errorText : ''}">
-                    <div th:if="${#fields.hasErrors('losungWiederh')}" th:errors="*{losungWiederh}" class="errorText"></div>
-                </td>
-            </tr>
-        </table>
-    <button>OK</button>
-    </form>    
+                        </select>
+                    </td>
+                </tr>
+                <tr>
 
-    
+                    <td th:text="#{benutzer.losung}"></td>
+                    <td>
+                        <label for="losung"></label>
+                        <input type="password" name="losung" th:classappend="${#fields.hasErrors ? errorBorder : ''}">
+                        <div th:if="${#fields.hasErrors('losung')}" th:errors="*{losung}" class="errorText"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{benutzer.losungwh}"></td>
+                    <td>
+                        <label for="losungWiederh"></label>
+                        <input type="password" name="losungWiederh"
+                            th:classappend="${#fields.hasErrors ? errorText : ''}">
+                        <div th:if="${#fields.hasErrors('losungWiederh')}" th:errors="*{losungWiederh}"
+                            class="errorText">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Lieblingsfarbe</label>
+                    </td>
+                    <td>
+                        <input type="color">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Geburtstag</label>
+                    </td>
+                    <td>
+                        <input type="date">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Uhrzeit</label>
+                    </td>
+                    <td>
+                        <input type="time">
+                    </td>
+                </tr>
+            </table>
+            <button>OK</button>
+        </form>
+
+    </div>
     <footer th:insert="~{fragments/kopffuss :: fuss}"></footer>
 </body>
+
 </html>
